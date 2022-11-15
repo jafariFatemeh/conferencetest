@@ -1,4 +1,4 @@
-package models;
+package com.conferencetest.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,13 +17,11 @@ public class Session {
 
     @ManyToMany
     @JoinTable(
-            name = "session_speakers",
-            joinColumns = @JoinColumn(name = "session_id"),
-            inverseJoinColumns = @JoinColumn(name = "speaker_id"))
-    private List<Speaker> speakers;
+            name="session_speakers",
+            joinColumns = @JoinColumn(name="session_id"),
+            inverseJoinColumns = @JoinColumn(name="speaker_id"))
 
-    public Session() {
-    }
+    private List<Speaker> speakers;
 
     public List<Speaker> getSpeakers() {
         return speakers;
@@ -63,5 +61,8 @@ public class Session {
 
     public void setSession_length(Integer session_length) {
         this.session_length = session_length;
+    }
+
+    public Session() {
     }
 }

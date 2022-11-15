@@ -1,11 +1,11 @@
-package controllers;
+package com.conferencetest.controllers;
 
 
-import models.Session;
+import com.conferencetest.models.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import repositories.SessionRepository;
+import com.conferencetest.repositories.SessionRepository;
 
 import java.util.List;
 
@@ -17,13 +17,14 @@ public class SessionsController {
 
     @GetMapping
     public List<Session> list() {
+
         return sessionRepository.findAll();
     }
 
     @GetMapping
     @RequestMapping("{id}")
     public Session get(@PathVariable Long id) {
-        return sessionRepository.getOne(id);
+        return sessionRepository.getReferenceById(id);
     }
 
     @PostMapping
@@ -41,7 +42,7 @@ public class SessionsController {
     public Session update(@PathVariable Long id, @RequestBody Session session) {
         //because this is a PUT, we expect all attributes to be passed in. A PATCH would only need what has changed.
         //TODO: Add validation that all attributes are passed in, otherwise return a 400 bad payload
-        Session existingSession = sessionRepository.getOne(id);
+        Session existingSession = sessionRepository.getReferenceById(id);
         BeanUtils.copyProperties(session, existingSession, "session_id");
         return sessionRepository.saveAndFlush(existingSession);
     }
